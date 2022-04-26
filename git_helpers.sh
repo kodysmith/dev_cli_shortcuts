@@ -5,7 +5,7 @@ function gbr() {git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'}
 function gpo() {git push origin $(gbr) $1}
 
 # create a PR for the current branch
-gpr () {
+function gpr () {
   BRANCH=$(gbr);
   git push -u origin "$BRANCH" &&
   gh pr create --fill &&
@@ -13,7 +13,7 @@ gpr () {
 }
 
 # git checkout branch from main
-gcbm () {
+function gcbm () {
   $BRANCH=$1;
   if [[ -z "$1" ]] {
     echo 'please provide a branch name\n';
