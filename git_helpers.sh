@@ -31,15 +31,15 @@ function gco() {
 
 # git checkout branch from main
 function gcbm () {
-  $BRANCH=$1;
-  if [[ -z "$1" ]] {
+  BRANCH=$1;
+  if [[ -z "$BRANCH" ]] {
     echo "${GH_RED}please provide a branch name\n";
     echo "${GH_UN}usage: gcbm BranchName \n";
     return 1;
   }
   git checkout main &&
   git pull &&
-  git checkout -b $1 &&
+  git checkout -b $BRANCH &&
   return 0
 }
 
@@ -69,7 +69,7 @@ function git_find_replace(){
 # ksmith/baz';
 
 function gbda () {
-  $BRANCHS=$1;
+  BRANCHES=$1;
   if [[ -z "$1" ]] {
     echo "${GH_RED}please provide a branch name(s)\n";
     echo "${GH_UN}usage: gbda 'BranchName1 \nBranchName2 \nBranchName3' \n";
