@@ -61,6 +61,14 @@ function git_find_replace(){
 }
 
 # git branch delete all (list)
+# Why? because sometimes you want to copy / paste the branches you want to delete
+# Alternative: git branch -D branchName1 branchName1_1 branchName2 branchName3
+#
+# gathering branches to delete:
+#
+# BRANCHES=$(git branch |grep branchName1)
+# gbda $BRANCHES
+#
 # usage: gbda "ksmith/foo \nksmith/bar \nksmith/baz"
 # alternate usage: 
 # gbda '
