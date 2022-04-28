@@ -1,3 +1,8 @@
+# cli colors
+GH_GREEN="\033[1;32m";
+GH_RED="\033[1;31m";
+GH_UN="\033[1;34m";
+
 # gbr== get branch; or get the current branch name checked out
 function gbr() {git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'}
 
@@ -12,12 +17,24 @@ function gpr () {
   return 0
 }
 
+# git checkout shorthand 
+function gco() {
+  if [[ -z "$1" ]] {
+    echo "${GH_RED}please provide a branch name";
+    echo "${GH_UN}Usage: gco myBranch\n";
+    return 1;
+  } else {
+    git checkout $1;
+  }
+  return 0;
+}
+
 # git checkout branch from main
 function gcbm () {
   $BRANCH=$1;
   if [[ -z "$1" ]] {
-    echo 'please provide a branch name\n';
-    echo 'usage: gcbm BranchName \n';
+    echo "${GH_RED}please provide a branch name\n";
+    echo "${GH_UN}usage: gcbm BranchName \n";
     return 1;
   }
   git checkout main &&
@@ -41,4 +58,26 @@ function git_find_replace(){
   do;
     sed -i '' "s/$GREPSTR/$REPLACESTR/g" $f;
   done;
+}
+
+# git branch delete all (list)
+# usage: gbda "ksmith/foo \nksmith/bar \nksmith/baz"
+# alternate usage: 
+# gbda '
+# ksmith/foo
+# ksmith/bar
+# ksmith/baz';
+
+function gbda () {
+  $BRANCHS=$1;
+  if [[ -z "$1" ]] {
+    echo "${GH_RED}please provide a branch name(s)\n";
+    echo "${GH_UN}usage: gbda 'BranchName1 \nBranchName2 \nBranchName3' \n";
+    return 1;
+  }
+
+  for branch in $(echo $BRANCHES)
+  do
+    git branch -D $branch
+  done
 }
