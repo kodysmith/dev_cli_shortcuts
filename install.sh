@@ -3,14 +3,16 @@ echo "what file is sourced at startup? example: .profile"
 read PROFILE;
 echo "installing scripts in $PROFILE."
 CWD=$(PWD);
-GENERIC=$CWD/generic/;
+LIVE=$CWD/live/;
+cp $CWD/generic/* $CWD/live/;
 echo "\
 ##### dev_cli_tools start #####
-GENERIC=$GENERIC;
+LIVE=$LIVE;
 "'
-for f in $(ls $GENERIC);
+for f in $(ls $LIVE);
 do;
-  source $f;
+  source $LIVE/$f;
 done;
 ##### dev_cli_tools end #######
 ' >> ~/$PROFILE;
+source ~/$PROFILE;
