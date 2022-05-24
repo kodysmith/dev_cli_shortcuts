@@ -89,3 +89,9 @@ function gbda () {
     git branch -D $branch
   done
 }
+contributors () {
+	git log --pretty="format:%an" -- $1 | sort | uniq -c | sort -r | head -n 30
+}
+hotspot () {
+	git log --name-only --pretty="format:" -- $1 | sort | uniq -c | sort -r | head -n 30
+}
